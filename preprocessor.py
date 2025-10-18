@@ -60,11 +60,3 @@ def preprocess(data):
     df['period'] = period
 
     return df
-
-with open("WhatsApp Chat with The Shit 📈🔥.txt", "r", encoding="utf-8") as f:
-    data = f.read()
-
-df = preprocess(data)
-# print(df.head())
-
-print(list(df.columns))
