@@ -7,7 +7,7 @@ import seaborn as sns
 import numpy as np
 
 st.title("WhatsApp Chat Analyzer")
-st.markdown("Upload your exported whatsapp chat here and view the anaylsis")
+st.markdown("Upload your exported whatsapp chat here and view the analysis")
 st.sidebar.title("WhatsApp Chat Analyzer 📊")
 uploaded_file = st.sidebar.file_uploader("Choose a file")
 if uploaded_file is not None:
