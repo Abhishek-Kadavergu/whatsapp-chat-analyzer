@@ -7,3 +7,4 @@ pandas
 emoji
 urlextract
 python-dotenv
+pymongo
