@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import streamlit as st
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
@@ -5,17 +7,38 @@ import preprocessor, helper
 import plotly.express as px
 import seaborn as sns
 import numpy as np
+from pymongo import MongoClient
+
+# Replace this with your MongoDB URI
+client = MongoClient("mongodb+srv://abhishek944:Kadavergu944@cluster0.dkojutx.mongodb.net/whatapp-chat-analyzer?appName=Cluster0")
+db = client["whatsapp_analyzer"]
+collection = db["chats"]
 
 st.title("WhatsApp Chat Analyzer")
 st.markdown("Upload your exported whatsapp chat here and view the anaylsis")
 st.sidebar.title("WhatsApp Chat Analyzer 📊")
-uploaded_file = st.sidebar.file_uploader("Choose a file")
+uploaded_file = st.file_uploader("Upload your WhatsApp chat (.txt)", type=["txt"])
 if uploaded_file is not None:
     bytes_data = uploaded_file.getvalue()
     data = bytes_data.decode('utf-8')
     # st.text(data)
     df = preprocessor.preprocess(data)
     st.dataframe(df)
+
+    # Store in MongoDB
+    chat_data = {
+        "filename": uploaded_file.name,
+        "content": data,
+        "uploaded_at": datetime.utcnow(),
+    }
+
+    # Insert into MongoDB
+    result = collection.insert_one(chat_data)
+    # print(result)
+
+    # st.success(f"✅ Chat saved to DB with ID: {result.inserted_id}")
+    # st.write(f"Total chats in DB: {collection.count_documents({})}")
+
 
     # fetch unique users
     user_list = df["user"].unique().tolist()
