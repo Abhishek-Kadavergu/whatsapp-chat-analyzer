@@ -17,7 +17,7 @@ db = client["whatsapp_analyzer"]
 collection = db["chats"]
 
 st.title("WhatsApp Chat Analyzer")
-st.markdown("Upload your exported whatsapp chat here and view the anaylsis")
+st.markdown("Upload your exported whatsapp chat here and view the analysis")
 st.sidebar.title("WhatsApp Chat Analyzer 📊")
 uploaded_file = st.file_uploader("Upload your WhatsApp chat (.txt)", type=["txt"])
 if uploaded_file is not None:
