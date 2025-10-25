@@ -8,9 +8,11 @@ import plotly.express as px
 import seaborn as sns
 import numpy as np
 from pymongo import MongoClient
-
-# Replace this with your MongoDB URI
-client = MongoClient("mongodb+srv://abhishek944:Kadavergu944@cluster0.dkojutx.mongodb.net/whatapp-chat-analyzer?appName=Cluster0")
+from dotenv import load_dotenv
+import os
+load_dotenv()
+mongo_uri = os.getenv("MONGO_URI")
+client = MongoClient(mongo_uri)
 db = client["whatsapp_analyzer"]
 collection = db["chats"]
 
